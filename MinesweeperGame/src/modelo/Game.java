@@ -4,7 +4,7 @@ import exceptions.CreateBoardException;
 
 public class Game {
 
-	private boolean isFinished;
+	private boolean finish;
 	private Board board;
 
 	/**
@@ -17,7 +17,7 @@ public class Game {
 	 * <b>post: </b> Game inicialized with the parameter <br>
 	 */
 	public Game(int width,int height, int numMines)throws CreateBoardException{
-		isFinished = false;
+		finish = false;
 		board = new Board(width, height, numMines);
 	}
 
@@ -32,8 +32,12 @@ public class Game {
 	 * <b>post: </b> la celda ha sido seleccionada o marcada y el juego es verificado <br>
 	 */
 	public void play(int row, int column, char action){
-		board.selectedCell(row, column, action);
-		isFinished = board.isFinished();
+		board.selectedCell(row-1, column-1, action);
+		finish = board.isFinished();
+	}
+	
+	public String showBoard(){
+		return board.showBoard();
 	}
 
 	public Board getBoard() {
@@ -41,10 +45,10 @@ public class Game {
 	}
 
 	public boolean isFinished() {
-		return isFinished;
+		return finish;
 	}
 
 	public void setFinish(boolean isFinish) {
-		this.isFinished = isFinish;
+		this.finish = isFinish;
 	}	
 }

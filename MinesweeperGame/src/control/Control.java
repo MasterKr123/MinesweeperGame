@@ -24,6 +24,26 @@ public class Control {
 			int numMines = Integer.parseInt(line[2]);	
 			
 			Game game = new Game(width, height, numMines);
+			System.out.println("\n" + game.showBoard() + "\n");
+			
+			int row = 0;
+			int column = 0;
+			char action = ' ';
+			
+			while(!game.isFinished()){
+				System.out.println("Ingress: row column action");
+				line = buferReader.readLine().split(" ");
+			
+				row = Integer.parseInt(line[0]);
+				column = Integer.parseInt(line[1]);
+				action = line[2].charAt(0);
+				
+				game.play(row, column, action);
+				System.out.println("\n" + game.showBoard() + "\n");
+			}
+			
+			System.out.println("\n" + game.getBoard().uncoveredCells() + "\n");
+			System.out.println("THE END");
 			
 		} catch (IOException e) {
 			System.out.println("Error en el flujo de datos");	
