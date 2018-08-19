@@ -1,5 +1,8 @@
 # MinesweeperGame
 Challenge PSL intership  
+Jorge Eliecer Castaño Valencia  
+Universidad Icesi - Ingenieria Telematica  
+jorgeeliecercastao@gmail.com
 
 This challenge consists of the classic game of search for mines based on command line where the board is constituted by:  
 ‘.’ : Unselected cell (can be uncovered or marked)  
