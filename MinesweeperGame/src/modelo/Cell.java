@@ -2,9 +2,9 @@ package modelo;
 
 public class Cell {
 
-	public char value;
-	public boolean covered;
-	public boolean flag;
+	private char value;
+	private boolean covered;
+	private boolean marked;
 
 	public final static char UNSELECTED_CELL = '.';
 	public final static char DISABLE_CELL = '-';
@@ -14,15 +14,17 @@ public class Cell {
 	/**
 	 * clase: Cell <br>
 	 * metodo: constructor <br>
-	 * Este metodo inicializa los parametros de la celda (valor, cubierto y banderado) <br>
-	 * @param value - Corresponde al valor de la celda <br>
-	 * <b>pre: </b> value!=null && 0<=value<=9 || value can be ('.','*','*','P')<br>
-	 * <b>post: </b> cell inicialized with the parameter <br>
+	 * Este metodo inicializa los parametros de la celda (valor, cubierto y marcado). <br>
+	 * covered y marked hacen refencia a los estados de si la celda esta cubierta y/o marcada con flag. <br> 
+	 * @param value - Corresponde al valor de la celda. <br>
+	 * <b>pre: </b> value!=null && 0<=value<=9 || value can be ('.','*','*','P'). <br>
+	 * <b>post: </b> cell inicialized with the parameter, covered and non market with flag. <br>
 	 */
+	
 	public Cell(char value){
 		this.value = value;
 		this.covered = true;
-		this.flag = false;
+		this.marked = false;
 	}
 
 	public char getValue(){
@@ -41,11 +43,11 @@ public class Cell {
 		this.covered = covered;
 	}
 	
-	public boolean isFlag() {
-		return flag;
+	public boolean isMarked() {
+		return marked;
 	}
 	
-	public void setFlag(boolean flag) {
-		this.flag = flag;
+	public void setMarked(boolean flag) {
+		this.marked = flag;
 	}
 }
