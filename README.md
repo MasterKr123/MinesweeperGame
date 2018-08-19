@@ -28,10 +28,21 @@ row column action
 
 
 
-## Execution instructions 
+## Execution instructions   
+
+**With IDE Eclipse:**  
+1. Download the project.  
+2. Open project with Eclipse  
+3. Choose File -> Export and select Java -> Runnable JAR File.  
+4. In command line run:  
+```  
+java -jar MinesWeeper.java  
+```  
+
+**With the command line:**
+
 1. Download the project.
 2. Situate yourself in the project directory.
-
 3. To run the project in Windows or Linux you must:
 
 * Have the java environment variable defined. If so, in CMD you should be able to execute the javac command. If not, go to note 1 for additional comments.
@@ -46,8 +57,19 @@ This will generate a file MinesWeeper.class
 * Run said file with the command  
 ```
 $ java MinesWeeper.class
-```
- 
+```  
+
+**Also, according to https://stackoverflow.com/questions/5441565/java-build-and-run-eclipse-project-from-command-line, you can:**
+1. Run the project with simplified syntax looks like this:
+java -cp <classpath> <main class> <args>  
+  
+where:  
+<classpath>  the current directory /bin of the project  
+<main class> MinesWeeper.class  
+<args> ""  
+     
+       
+       
  
 ## Additional comments
 * The project was developed on a Windows 10 machine.
