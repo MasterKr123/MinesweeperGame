@@ -8,12 +8,13 @@ import org.junit.Test;
 public class CellTest {
 
 	@Test
-	public void test() {
+	public void testCell() {
 		Cell cell = new Cell(Cell.DISABLE_CELL);
+		
 		assertEquals(cell.getValue(), Cell.DISABLE_CELL);
 		
 		cell.setValue(Cell.MINE_CELL);
-		assertEquals(cell, Cell.MINE_CELL);
+		assertEquals(cell.getValue(), Cell.MINE_CELL);
 		
 		cell.setValue(Cell.FLAG_CELL);
 		assertEquals(cell.getValue(), Cell.FLAG_CELL);

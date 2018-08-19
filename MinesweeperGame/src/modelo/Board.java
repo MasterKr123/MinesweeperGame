@@ -13,25 +13,26 @@ public class Board {
 	private int numMines;
 
 	private boolean finished;
+	private boolean correct;
 
 	public final static char SELECT = 'U';
 	public final static char MARK = 'M';
 
 	/**
 	 * clase: Board <br>
-	 * metodo: constructor <br>
-	 * Este metodo inicializa los parametros del tablero e inicializa las celdas. <br>
-	 * @param width - Corresponde al ancho del tablero. width!=null && width>0 <br>
-	 * @param height - Corresponde a la altura del tablero.  height!=null && height>0 <br>
-	 * @param numMines - Corresponde al numero de minas que contiene el tablero. numMines!=null && numMines>0 <br>
-	 * <b> post: </b> board inicialized with the parameter. <br>
+	 * metodo: builder <br>
+	 * This method initializes the parameters of the board and initializes the cells. <br>
+	 * @param width - Corresponds to the width of the board. width!=null && width>0 <br>
+	 * @param height - Corresponds to the height of the board.  height!=null && height>0 <br>
+	 * @param numMines - Corresponds to the number of mines contained in the board. numMines!=null && numMines>0 <br>
+	 * <b> post: </b> board inicialized with the parameters. <br>
 	 * @throws CreateBoardException <br>
-	 *         1. Si el numero de minas es mayor a la cantidad de celdas del tablero (width*height). <br>
+	 *         1. If the number of mines is greater than the number of cells in the board. (width*height). <br>
 	 */
 	public Board(int width, int height, int numMines) throws CreateBoardException{
 
 		if(numMines>(width*height)){
-			throw new CreateBoardException("La cantidad de minas es mayor al tablero");
+			throw new CreateBoardException("The number of mines is greater than the board.");
 		}else{
 			this.width = width;
 			this.height = height;
@@ -41,15 +42,16 @@ public class Board {
 			initializeCells();
 
 			finished = false;
+			correct = false;
 		}
 	}
 
 	/**
 	 * clase: Board <br>
 	 * metodo: initializeCells <br>
-	 * Este metodo inicializa los valores de las celdas con minas aleatorias y conteo de minas abyacentes. <br>
+	 * This method initializes the values ​​of the cells with random mines and counting of adjacent mines. <br>
 	 * <b>pre: </b> cells!=null && width!=null && height!=null <br>
-	 * <b>post: </b> El tablero es inicializado con el numero de minas y el conteo alrededor de las celdas. <br>
+	 * <b>post: </b> The board is initialized with the number of mines and the count around the cells. <br>
 	 */
 	private void initializeCells(){
 		fillBoardWithMines();
@@ -60,9 +62,9 @@ public class Board {
 	/**
 	 * clase: Board <br>
 	 * metodo: fillBoardWithMines <br>
-	 * Este metodo inicializa los valores de las celdas con minas aleatorias. <br>
+	 * This method initializes the values ​​of the cells with random mines. <br>
 	 * <b>pre: </b> cells!=null && numMines!=null <br>
-	 * <b>post: </b> El tablero es inicializado con el numero de minas aleaorias. <br>
+	 * <b>post: </b> The board is initialized with the number of random mines. <br>
 	 */
 	private void fillBoardWithMines(){
 		int mines = 0;
@@ -71,8 +73,8 @@ public class Board {
 
 		Random r = new Random();
 		while(mines<numMines){
-			rowRandom = r.nextInt(height-1);
-			columnRandom = r.nextInt(width-1);
+			rowRandom = r.nextInt(height);
+			columnRandom = r.nextInt(width);
 
 			if(cells[rowRandom][columnRandom] == null){
 				cells[rowRandom][columnRandom] = new Cell(Cell.MINE_CELL);
@@ -84,9 +86,9 @@ public class Board {
 	/**
 	 * clase: Board <br>
 	 * metodo: fillCellsWithAround <br>
-	 * Este metodo inicializa los valores de las celdas con el conteo de minas alrededor. <br>
-	 * <b>pre: </b> cells!=null && el tablero contiene las minas aleatorias. <br>
-	 * <b>post: </b> El tablero es inicializado con el conteo de las minas alrededor de la celda. <br>
+	 * This method initializes the values ​​of the cells with the mine count around. <br>
+	 * <b>pre: </b> cells!=null && the board contains the random mines. <br>
+	 * <b>post: </b> The board is initialized with the count of the mines around the cell. <br>
 	 */
 	private void fillCellsWithAround(){
 		for(int row = 0; row < height; row++){
@@ -131,12 +133,12 @@ public class Board {
 	/**
 	 * clase: Board <br>
 	 * metodo: selectedCell <br>
-	 * Este metodo selecciona o marca una celda, ademas de validar si el juego ha terminado. <br>
-	 * @param row - Corresponde a la fila del tablero. row!=null && 0<row<width <br>
-	 * @param column - Corresponde a la columna del tablero. column!=null && 0<column<height <br>
-	 * @param action - Corresponde al ancho del tablero. action!=null && action can be ('U','M') <br>
-	 * <b>pre: </b> El juego no ha terminado. <br>
-	 * <b>post: </b> la celda ha sido seleccionada o marcada y el juego es verificado. <br>
+	 * This method selects or marks a cell, in addition to validating if the game is over. <br>
+	 * @param row - Corresponds to the row of the board. row!=null && 0<row<width <br>
+	 * @param column - Corresponds to the board column. column!=null && 0<column<height <br>
+	 * @param action - Corresponds to the action of the game. action!=null && action can be ('U','M') <br>
+	 * <b>pre: </b> The game is not over. <br>
+	 * <b>post: </b> The cell has been selected or checked and the game is verified. <br>
 	 */
 	public void selectedCell(int row, int column, char action){
 		Cell cell = cells[row][column]; 
@@ -166,12 +168,12 @@ public class Board {
 	/**
 	 * clase: Board <br>
 	 * metodo: findOthersDisableCells <br>
-	 * Este metodo busca recursivamente las celdas desactivadas alrededor. <br>
-	 * @param row - Corresponde a la fila del tablero. row!=null && 0<row<width <br>
-	 * @param column - Corresponde a la columna del tablero. column!=null && 0<column<height <br>
-	 * <b>post: </b> las celdas desactivadas alrededor se haran visibles. <br>
+	 * This method recursively searches for deactivated cells around. <br>
+	 * @param row - Corresponds to the row of the board. row!=null && 0<row<width <br>
+	 * @param column - Corresponds to the board column. column!=null && 0<column<height <br>
+	 * <b>post: </b> The cells deactivated around will become visible. <br>
 	 */
-	private void findOthersDisableCells(int row, int column){
+	public void findOthersDisableCells(int row, int column){
 		Cell cell = cells[row][column]; 
 
 		if(cell.getValue() == Cell.DISABLE_CELL){	
@@ -208,9 +210,9 @@ public class Board {
 	/**
 	 * clase: Board <br>
 	 * metodo: validatePlay <br>
-	 * Este metodo valida si el juego ha terminado verifiacando el numero de minas descubiertas. <br>
-	 * <b>pre: </b> El juego no ha terminado. <br>
-	 * <b>post: </b> Validaci�n del juego. <br>
+	 * This method validates if the game has ended by verifying the number of discovered mines. <br>
+	 * <b>pre: </b> The game is not over. <br>
+	 * <b>post: </b> Game validation. <br>
 	 */
 	public void validatePlay(){
 		int discoverMines = 0;
@@ -229,6 +231,7 @@ public class Board {
 			}
 		}
 		if(nonDiscover==0 && numMines==discoverMines){
+			correct = true;
 			finished = true;
 		}
 	}
@@ -236,9 +239,9 @@ public class Board {
 	/**
 	 * clase: Board <br>
 	 * metodo: showBoard <br>
-	 * Este metodo concatena todo el tablero en el juego actual. <br>
+	 * This method concatenates the entire board in the current game. <br>
 	 * <b>pre: </b> cells!=null <br>
-	 * <b>post: </b> cadena del tablero. <br>
+	 * <b>post: </b> Board chain. <br>
 	 */
 	public String showBoard(){
 		String board = "";
@@ -251,7 +254,6 @@ public class Board {
 					}else{
 						board += Cell.UNSELECTED_CELL +" ";
 					}
-
 				}else{
 					board += cell.getValue()+ " ";
 				}
@@ -264,9 +266,9 @@ public class Board {
 	/**
 	 * clase: Board <br>
 	 * metodo: uncoveredCells <br>
-	 * Este metodo concatena todo el tablero en el juego terminado. <br>
+	 * This method concatenates the entire board in the finished game. <br>
 	 * <b>pre: </b> cells!=null <br>
-	 * <b>post: </b> cadena del tablero completo. <br>
+	 * <b>post: </b> Full board chain. <br>
 	 */
 	public String uncoveredCells(){
 		String board = "";
@@ -297,5 +299,13 @@ public class Board {
 
 	public boolean isFinished() {
 		return finished;
+	}
+	
+	public boolean isCorrect() {
+		return correct;
+	}
+	
+	public void setCorrect(boolean correct) {
+		this.correct = correct;
 	}
 }

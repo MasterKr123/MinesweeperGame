@@ -13,12 +13,12 @@ public class Cell {
 
 	/**
 	 * clase: Cell <br>
-	 * metodo: constructor <br>
-	 * Este metodo inicializa los parametros de la celda (valor, cubierto y marcado). <br>
-	 * covered y marked hacen refencia a los estados de si la celda esta cubierta y/o marcada con flag. <br> 
-	 * @param value - Corresponde al valor de la celda. <br>
+	 * metodo: builder <br>
+	 * This method initializes the parameters of the cell (value, covered and marked). <br>
+	 * covered and marked refer to the states of whether the cell is covered and/or flagged. <br> 
+	 * @param value - Corresponds to the value of the cell. <br>
 	 * <b>pre: </b> value!=null && 0<=value<=9 || value can be ('.','*','*','P'). <br>
-	 * <b>post: </b> cell inicialized with the parameter, covered and non market with flag. <br>
+	 * <b>post: </b> cell inicialized with the parameters, covered and non market with flag. <br>
 	 */
 	
 	public Cell(char value){

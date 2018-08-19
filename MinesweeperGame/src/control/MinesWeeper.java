@@ -1,15 +1,21 @@
 package control;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 import exceptions.CreateBoardException;
 import modelo.Game;
 
-public class Control {
+public class MinesWeeper {
 
+	
+	/**
+	 * clase: Control <br>
+	 * metodo: main <br>
+	 * Main method that starts the game. <br>
+	 * <b> post: </b> The game is started. <br>
+	 */
 	public static void main(String[] args) {
 		try {
 			start();
@@ -25,12 +31,12 @@ public class Control {
 	/**
 	 * clase: Control <br>
 	 * metodo: start <br>
-	 * Este metodo obtiene los valores de width, height y numMines del juego. <br>
-	 * <b> pre: </b> Los comando son ingresados correctamente, es decir con el formato:
-	 * width+" "+height+" "+numMines donde los tres valores son enteros. <br>
-	 * <b> post: </b> El juego es inicializado. <br>
+	 * This method obtains the values ​​of width, height and numMines of the game. <br>
+	 * <b> pre: </b> The commands are entered correctly, that is, with the format:
+	 * width+" "+height+" "+numMines where the three values ​​are integers. <br>
+	 * <b> post: </b> The game is initialized. <br>
 	 * @throws IOException <br>
-	 *         1. Si hay algun error en el flujo de datos. <br>
+	 *         1. If there is an error in the data flow. <br>
 	 */
 	private static void start() throws IOException{
 		BufferedReader buferReader = new BufferedReader(new InputStreamReader(System.in));
@@ -44,23 +50,23 @@ public class Control {
 
 		playGame(width, height, numMines, buferReader);
 
-		System.out.println("THE END");
+		System.out.println("GAME OVER");
 	}
 
 	/**
 	 * clase: Control <br>
 	 * metodo: playGame <br>
-	 * Este metodo comienza la interactividad del juego. <br>
-	 * @param width - Corresponde al ancho del tablero. width!=null && width>0 <br>
-	 * @param height - Corresponde a la altura del tablero.  height!=null && height>0 <br>
-	 * @param numMines - Corresponde al numero de minas que contiene el tablero. numMines!=null && numMines>0 <br>
-	 * @param buferReader - Flujo de entrada. buferReader!=null <br>
-	 * <b> pre: </b> Los comando son ingresados correctamente, es decir con el formato:
-	 * width+" "+height+" "+action donde los dos primeros son valores enteros y el tercero es "M" o "U". 
-	 * "M" corresponde a marcar y "U" a seleccionar la celda. <br>
-	 * <b> post: </b> El juego es interactivo. <br>
+	 * This method begins the interactivity of the game. <br>
+	 * @param width - Corresponds to the width of the board. width!=null && width>0 <br>
+	 * @param height - Corresponds to the height of the board.  height!=null && height>0 <br>
+	 * @param numMines - Corresponds to the number of mines contained in the board. numMines!=null && numMines>0 <br>
+	 * @param buferReader - Input flow. buferReader!=null <br>
+	 * <b> pre: </b> The commands are entered correctly, that is, with the format:
+	 * width+" "+height+" "+action Where the first two are integer values ​​and the third is "M" o "U". 
+	 * "M" corresponds to mark and "U" to select the cell. <br>
+	 * <b> post: </b> The game is interactive. <br>
 	 * @throws IOException <br>
-	 *         1. Si hay algun error en el flujo de datos. <br>
+	 *         1. If there is an error in the data flow. <br>
 	 */
 	private static void playGame(int width, int height, int numMines, BufferedReader buferReader) throws IOException{
 		try {
@@ -83,9 +89,8 @@ public class Control {
 				game.play(row, column, action);
 				System.out.println("\n" + game.showBoard() + "\n");
 			}
-
 			System.out.println("\n" + game.getBoard().uncoveredCells() + "\n");
-
+			System.out.println(game.getBoard().isCorrect()?"YOU WIN":"YOU LOST");
 		} catch (CreateBoardException e) {
 			System.out.println(e.getMessage());
 		}
